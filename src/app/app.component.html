@@ -2,36 +2,46 @@
 
   <form class="formCtr row mt-3 gx-3 gy-2 align-items-center justify-content-center">
     <div class="col-sm-6">
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" [(ngModel)]="newWishText" name="new-wish-text">
     </div>
     <div class="col-auto">
-      <button type="submit" class="btn btn-primary">Add Wish</button>
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        (click)="$event.preventDefault(); addNewWish()"
+      >
+        Add Wish
+      </button>
     </div>
   </form>
-
-  <div *ngIf="items.length === 0 else showItems">
-    <h2>There are no wishes to display</h2>
+  
+  <div class="rown mt-3">
+    <div *ngIf="items.length === 0 else showItems">
+      <h2>There are no wishes to display</h2>
+    </div>
+  
+    <ng-template #showItems>
+      <ul *ngIf="items.length > 0" class="wish-list">
+        <li *ngFor="let item of items; index as ii">
+          <div class="form-check">
+            <label class="form-check-label">
+              <!-- [] binds JS elements -->
+              <input 
+                type="checkbox" 
+                class="checkbox"
+                [checked]="item.isComplete"
+                [attr.data-index] = "ii"
+                (click)="toogleItem(item)"
+              > 
+              <p> {{item.wishText}} </p>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </ng-template>
+      
   </div>
 
-  <ng-template #showItems>
-    <ul *ngIf="items.length > 0" class="wish-list">
-      <li *ngFor="let item of items; index as ii">
-        <div class="form-check">
-          <label class="form-check-label">
-            <!-- [] binds JS elements -->
-            <input 
-              type="checkbox" 
-              class="checkbox"
-              [checked]="item.isComplete"
-              [attr.data-index] = "ii"
-              (click)="toogleItem(item)"
-            > 
-            <p> {{item.wishText}} </p>
-          </label>
-        </div>
-      </li>
-    </ul>
-  </ng-template>
-    
+  
   
 </div>
