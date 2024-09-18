@@ -13,10 +13,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent {
   items : WishItem[] = [
-    // new WishItem('To Learn Angular'),
-    // new WishItem('Get Coffe', true),
-    // new WishItem('Be Rich', false),
+    new WishItem('To Learn Angular'),
+    new WishItem('Get Coffe', true),
+    new WishItem('Be Rich', false),
   ];
+
+  listFilter : String = "0";
 
   title = 'my wishlist';
 
@@ -27,8 +29,11 @@ export class AppComponent {
     this.newWishText= ""
   }
 
+  filterChanged(value : any){
+    console.log(value)
+  }
+
   toogleItem(item : WishItem){
     item.isComplete = !item.isComplete
-    console.log(item)
   };
 }
